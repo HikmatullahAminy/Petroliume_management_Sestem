@@ -1,0 +1,71 @@
+﻿@model IEnumerable<AHMSApplicationDemo.Models.Purchase>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Purchases</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TotalLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PricePerLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalLiter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PricePerLiter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Store.OilName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PurchaseId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PurchaseId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PurchaseId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+    </script>
+} 

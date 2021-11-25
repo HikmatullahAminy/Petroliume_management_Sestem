@@ -1,0 +1,19 @@
+﻿@model AHMSApplicationDemo.ViewModels.AccountViewModels.CreateRoleViewModel
+@{
+    ViewData["Title"] = "CreateRole";
+    Layout = "~/Views/Shared/_LayoutMetronic.cshtml";
+}
+
+<h1>CreateRole</h1>
+
+<form asp-controller="Account" asp-action="CreateRole" method="post" >
+    <div class="form-group">
+        <label asp-for="@Model.RoleName"></label>
+        <input asp-for="@Model.RoleName" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.RoleName"></span>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-primary" name="Create" value="Create" />
+    </div>
+</form>

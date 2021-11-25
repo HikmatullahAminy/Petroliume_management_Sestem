@@ -1,0 +1,87 @@
+﻿@using AHMSApplicationDemo.Data
+@inject ApplicationDbContext _context
+@model IEnumerable<AHMSApplicationDemo.Models.salles>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Salles History</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PricePerLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BenifitPerLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalBinifit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalSalles)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalLiter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PricePerLiter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BenifitPerLiter)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalBinifit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalSalles)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @{
+                        var intend = _context.Stores.Find(item.Store.StoreId);
+                    }
+                    @intend.OilName
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.SallesId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SallesId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SallesId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+    </script>
+} 

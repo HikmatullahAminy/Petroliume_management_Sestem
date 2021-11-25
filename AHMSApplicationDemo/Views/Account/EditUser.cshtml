@@ -1,0 +1,68 @@
+﻿@model EditUserViewModel
+
+
+
+
+<form action="/" method="post">
+    <div class="form-group">
+        <label asp-for="UserId"></label>
+        <input asp-for="UserId" class="form-control" disabled />
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" asp-action="EditUser" asp-controller="Account" class="btn btn-success" asp-route-UserId="@Model.UserId">Update</button>
+        <a asp-action="ListUser" asp-controller="Account" class="btn btn-success">Cancel</a>
+    </div>
+</form>
+
+
+@if (Model.Roles.Any())
+{
+    <div class="card">
+
+        <div class="card-header"> <h2>User Roles</h2></div>
+
+        <div class="card-body">
+
+
+            @foreach (var rol in Model.Roles)
+            {
+                <h5>@rol</h5>
+            }
+
+        </div>
+        
+        <div class="card-footer">
+            <a asp-action="ManageUserRole" asp-controller="account" asp-route-UserId="@Model.UserId" class="btn btn-success">Manage Role</a>
+
+        </div>
+
+
+    </div>
+}
+else
+{
+    <div class="card">
+
+        <div class="card-header"> <h2>User Roles</h2></div>
+
+        <div class="card-body">
+            <h2>There Is No Role For This User</h2>
+        </div>
+        }
+        <div class="card-footer">
+            <a asp-action="ManageUserRole" asp-controller="account" asp-route-UserId="@Model.UserId" class="btn btn-success">Manage Role</a>
+        </div>
+
+
+    </div>
+}
+
+

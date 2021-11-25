@@ -1,0 +1,99 @@
+﻿@using AHMSApplicationDemo.Data;
+@inject ApplicationDbContext _context
+@model IEnumerable<AHMSApplicationDemo.Models.Dept>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Depts</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>&nbsp;&nbsp;&nbsp;&nbsp;<a asp-controller="HalfDebts" asp-action="Index" class="btn btn-info">Acheived Debts</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PricePerLiter)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model=>model.RemainsAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Store)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalLiter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PricePerLiter)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RemainsAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @{
+                    var intend = _context.Stores.Find(item.Store.StoreId);
+                }
+                @intend.OilName
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DeptId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DeptId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DeptId">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#myTable").DataTable();
+        });
+    </script>
+} 

@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@model IEnumerable<IdentityUser>
+@{
+    ViewData["Title"] = "ListUser";
+}
+
+<h2>All User</h2>
+<a href="/Identity/Account/Register" class="btn btn-success">Create New</a>
+
+@if (Model.Any())
+{
+    foreach (var user in Model)
+    {
+        <div class="card">
+            <div class="card-header">User Id : @user.Id</div>
+            <div class="card-body">User Name :@user.UserName</div>
+            <div class="card-footer">
+                <a asp-action="EditUser" class="btn btn-success" asp-controller="account" asp-route-UserId="@user.Id">Edite User</a>
+                <a asp-action="DeleteUser" class="btn btn-success" onclick="return confirm
+               ('Are You Sure You want to Delete The User')" asp-controller="account" asp-route-UserId="@user.Id">Delete User</a>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert">No User Created</div>
+    <div>
+        <a asp-action="CreateUser" asp-controller="account">Create User</a>
+    </div>
+}
