@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AHMSApplicationDemo.Data;
 using AHMSApplicationDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AHMSApplicationDemo.Controllers
 {
+    [Authorize]
     public class SallariesController : Controller
     {
         private readonly ApplicationDbContext _context;

@@ -81,7 +81,7 @@ namespace AHMSApplicationDemo
             {
                 option.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
             });*/
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>().AddSignInManager()
                 .AddRoles<IdentityRole>().
                 AddDefaultUI()
                // .AddDefaultUI(UIFrameworkAttribute.Bootstrap3)

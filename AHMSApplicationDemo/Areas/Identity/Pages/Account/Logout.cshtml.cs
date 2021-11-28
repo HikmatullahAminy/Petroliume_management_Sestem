@@ -26,20 +26,21 @@ namespace AHMSApplicationDemo.Areas.Identity.Pages.Account
         {
         }
 
-        public async Task<IActionResult> Logout(string returnUrl = null)
+        public async Task<IActionResult> Logout(string returnUrl=   null)
         {
+            
+            returnUrl = returnUrl ?? Url.Content("~/Home/Index");
             await _signInManager.SignOutAsync();
 
-            return Redirect("Login.cshtml.cs");
-            /*  _logger.LogInformation("User logged out.");
-              if (returnUrl != null)
-              {
-                  return LocalRedirect(returnUrl);
-              }
-              else
-              {
-                  return RedirectToPage();
-              }*/
+            _logger.LogInformation("User logged out.");
+            if (returnUrl != null)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToPage();
+            }
         }
     }
 }

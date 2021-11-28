@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AHMSApplicationDemo.Data;
 using AHMSApplicationDemo.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AHMSApplicationDemo.Controllers
 {
+    [Authorize]
     public class sallesController : Controller
     {
+      
         private readonly ApplicationDbContext _context;
 
         public sallesController(ApplicationDbContext context)
@@ -59,7 +62,7 @@ namespace AHMSApplicationDemo.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("SallesId,TotalLiter,PricePerLiter,Date,StoreId")] salles salles)
         {
-            var ExactBenifit = ViewBag.ExactBenifit;
+          /*  var ExactBenifit = ViewBag.ExactBenifit;
             var TotalBenifit = ViewBag.TotalBenifit;
 
 
@@ -88,7 +91,7 @@ namespace AHMSApplicationDemo.Controllers
             {
                 salles.BenifitPerLiter = PetrolExactBenifit;
                 salles.TotalBinifit = PetrolTotalBenifit;
-            }
+            }*/
 
 
     
@@ -144,7 +147,7 @@ namespace AHMSApplicationDemo.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SallesId,TotalLiter,PricePerLiter,BenifitPerLiter,TotalBinifit,TotalSalles,Date,StoreId")] salles salles)
+        public async Task<IActionResult> Edit(int id, [Bind("SallesId,TotalLiter,PricePerLiter,TotalSalles,Date,StoreId")] salles salles)
         {
             if (id != salles.SallesId)
             {

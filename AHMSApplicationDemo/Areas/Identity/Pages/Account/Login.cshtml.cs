@@ -79,7 +79,7 @@ namespace AHMSApplicationDemo.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
           //  HomeController homeController = new HomeController();
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/Home/Index");
 
             if (ModelState.IsValid)
             {
@@ -94,7 +94,8 @@ namespace AHMSApplicationDemo.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction(actionName:"index",controllerName:"Home");
+                    return LocalRedirect(returnUrl);
+                   // return RedirectToAction(actionName:"Index",controllerName:"Home");
                 }
                 if (result.RequiresTwoFactor)
                 {

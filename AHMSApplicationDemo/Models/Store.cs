@@ -8,6 +8,7 @@ namespace AHMSApplicationDemo.Models
 {
     public class Store
     {
+        [Display(Name ="Type")]
         public int StoreId { get; set; }
         
         [Display(Name ="Oil Name")]

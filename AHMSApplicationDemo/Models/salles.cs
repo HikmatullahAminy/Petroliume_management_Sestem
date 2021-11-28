@@ -13,10 +13,7 @@ namespace AHMSApplicationDemo.Models
         public int TotalLiter { get; set; }
         [Display(Name ="Price per Liter")]
         public int PricePerLiter{ get; set; }
-        [Display(Name ="Benifit per Liter")]
-        public int BenifitPerLiter { get; set; }
-        [Display(Name ="Total Benifit")]
-        public int TotalBinifit { get; set; }
+      
         [Display(Name =("Total Salles"))]
         public int TotalSalles { get; set; }
         public DateTime Date { get; set; }

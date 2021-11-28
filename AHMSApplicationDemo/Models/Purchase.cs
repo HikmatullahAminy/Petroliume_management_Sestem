@@ -11,7 +11,7 @@ namespace AHMSApplicationDemo.Models
     {
         public int PurchaseId { get; set; }
         [ForeignKey("StoreId")]
-        [Display(Name ="Oil Type")]
+       
         public int StoreId { get; set; }
         public Store Store { get; set; }
         [Display(Name ="Total Liter")]
