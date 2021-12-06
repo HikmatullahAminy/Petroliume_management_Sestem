@@ -10,14 +10,14 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace AHMSApplicationDemo.Controllers
 {
-   
+   [Authorize]
     public class AccountController : Controller
     {
 
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _sinInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private IList<string> _roles;
+        //private IList<string> _roles;
 
         public AccountController(SignInManager<IdentityUser> sinInManager,
                                  UserManager<IdentityUser> userManager,

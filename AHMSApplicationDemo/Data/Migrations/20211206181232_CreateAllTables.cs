@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AHMSApplicationDemo.Data.Migrations
 {
-    public partial class resetingall : Migration
+    public partial class CreateAllTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,10 +91,11 @@ namespace AHMSApplicationDemo.Data.Migrations
                 {
                     ExpenseId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     EmployeeId = table.Column<int>(nullable: false),
                     ExpTypeId = table.Column<int>(nullable: false),
-                    ExpenseTypeExpTypeId = table.Column<int>(nullable: true)
+                    
                 },
                 constraints: table =>
                 {
@@ -106,8 +107,8 @@ namespace AHMSApplicationDemo.Data.Migrations
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Expenses_ExpenseTypes_ExpenseTypeExpTypeId",
-                        column: x => x.ExpenseTypeExpTypeId,
+                        name: "FK_Expenses_ExpenseTypes_ExpTypeId",
+                        column: x => x.ExpTypeId,
                         principalTable: "ExpenseTypes",
                         principalColumn: "ExpTypeId",
                         onDelete: ReferentialAction.Restrict);
@@ -125,6 +126,7 @@ namespace AHMSApplicationDemo.Data.Migrations
                     TotalLiter = table.Column<int>(nullable: false),
                     PricePerLiter = table.Column<int>(nullable: false),
                     TotalPrice = table.Column<int>(nullable: false),
+                    RemainsAmount = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     StoreId = table.Column<int>(nullable: false)
                 },
@@ -170,8 +172,6 @@ namespace AHMSApplicationDemo.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalLiter = table.Column<int>(nullable: false),
                     PricePerLiter = table.Column<int>(nullable: false),
-                    BenifitPerLiter = table.Column<int>(nullable: false),
-                    TotalBinifit = table.Column<int>(nullable: false),
                     TotalSalles = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
                     StoreId = table.Column<int>(nullable: false)
@@ -188,30 +188,52 @@ namespace AHMSApplicationDemo.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HalfDebts",
+                columns: table => new
+                {
+                    HalfDebtId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Amount = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    RemainingDebts = table.Column<int>(nullable: false),
+                    DeptsId = table.Column<int>(nullable: false),
+                    DeptId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HalfDebts", x => x.HalfDebtId);
+                    table.ForeignKey(
+                        name: "FK_HalfDebts_Depts_DeptId",
+                        column: x => x.DeptId,
+                        principalTable: "Depts",
+                        principalColumn: "DeptId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PurchaseSalles",
                 columns: table => new
                 {
                     PurchaseSallesId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SallesId = table.Column<int>(nullable: false),
-                    PurchaseId = table.Column<int>(nullable: false),
-                    StoreId = table.Column<int>(nullable: true)
+                    PurchaseId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PurchaseSalles", x => x.PurchaseSallesId);
+                    table.ForeignKey(
+                        name: "FK_PurchaseSalles_purchases_PurchaseId",
+                        column: x => x.PurchaseId,
+                        principalTable: "purchases",
+                        principalColumn: "PurchaseId",
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_PurchaseSalles_Salles_SallesId",
                         column: x => x.SallesId,
                         principalTable: "Salles",
                         principalColumn: "SallesId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PurchaseSalles_purchases_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "purchases",
-                        principalColumn: "PurchaseId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -225,9 +247,14 @@ namespace AHMSApplicationDemo.Data.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Expenses_ExpenseTypeExpTypeId",
+                name: "IX_Expenses_ExpTypeId",
                 table: "Expenses",
-                column: "ExpenseTypeExpTypeId");
+                column: "ExpTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HalfDebts_DeptId",
+                table: "HalfDebts",
+                column: "DeptId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_purchases_StoreId",
@@ -235,14 +262,14 @@ namespace AHMSApplicationDemo.Data.Migrations
                 column: "StoreId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PurchaseSalles_PurchaseId",
+                table: "PurchaseSalles",
+                column: "PurchaseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PurchaseSalles_SallesId",
                 table: "PurchaseSalles",
                 column: "SallesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PurchaseSalles_StoreId",
-                table: "PurchaseSalles",
-                column: "StoreId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sallaries_EmployeeId",
@@ -261,10 +288,10 @@ namespace AHMSApplicationDemo.Data.Migrations
                 name: "Bankes");
 
             migrationBuilder.DropTable(
-                name: "Depts");
+                name: "Expenses");
 
             migrationBuilder.DropTable(
-                name: "Expenses");
+                name: "HalfDebts");
 
             migrationBuilder.DropTable(
                 name: "PurchaseSalles");
@@ -276,10 +303,13 @@ namespace AHMSApplicationDemo.Data.Migrations
                 name: "ExpenseTypes");
 
             migrationBuilder.DropTable(
-                name: "Salles");
+                name: "Depts");
 
             migrationBuilder.DropTable(
                 name: "purchases");
+
+            migrationBuilder.DropTable(
+                name: "Salles");
 
             migrationBuilder.DropTable(
                 name: "Employees");

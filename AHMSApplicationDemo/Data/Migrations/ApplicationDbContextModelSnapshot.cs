@@ -121,14 +121,13 @@ namespace AHMSApplicationDemo.Data.Migrations
                     b.Property<int>("ExpTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ExpenseTypeExpTypeId")
-                        .HasColumnType("int");
+                   
 
                     b.HasKey("ExpenseId");
 
                     b.HasIndex("EmployeeId");
 
-                    b.HasIndex("ExpenseTypeExpTypeId");
+                    b.HasIndex("ExpTypeId");
 
                     b.ToTable("Expenses");
                 });

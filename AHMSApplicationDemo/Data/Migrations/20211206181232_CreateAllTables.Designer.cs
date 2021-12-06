@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AHMSApplicationDemo.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211108191421_addAmountColumn")]
-    partial class addAmountColumn
+    [Migration("20211206181232_CreateAllTables")]
+    partial class CreateAllTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,6 +56,9 @@ namespace AHMSApplicationDemo.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("PricePerLiter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RemainsAmount")
                         .HasColumnType("int");
 
                     b.Property<int>("StoreId")
@@ -145,6 +148,35 @@ namespace AHMSApplicationDemo.Data.Migrations
                     b.HasKey("ExpTypeId");
 
                     b.ToTable("ExpenseTypes");
+                });
+
+            modelBuilder.Entity("AHMSApplicationDemo.Models.HalfDebts", b =>
+                {
+                    b.Property<int>("HalfDebtId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DeptId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DeptsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RemainingDebts")
+                        .HasColumnType("int");
+
+                    b.HasKey("HalfDebtId");
+
+                    b.HasIndex("DeptId");
+
+                    b.ToTable("HalfDebts");
                 });
 
             modelBuilder.Entity("AHMSApplicationDemo.Models.Purchase", b =>
@@ -246,9 +278,6 @@ namespace AHMSApplicationDemo.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BenifitPerLiter")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
@@ -256,9 +285,6 @@ namespace AHMSApplicationDemo.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalBinifit")
                         .HasColumnType("int");
 
                     b.Property<int>("TotalLiter")
@@ -490,6 +516,13 @@ namespace AHMSApplicationDemo.Data.Migrations
                     b.HasOne("AHMSApplicationDemo.Models.ExpenseType", "ExpenseType")
                         .WithMany("Expenses")
                         .HasForeignKey("ExpenseTypeExpTypeId");
+                });
+
+            modelBuilder.Entity("AHMSApplicationDemo.Models.HalfDebts", b =>
+                {
+                    b.HasOne("AHMSApplicationDemo.Models.Dept", "Dept")
+                        .WithMany("HalfDebts")
+                        .HasForeignKey("DeptId");
                 });
 
             modelBuilder.Entity("AHMSApplicationDemo.Models.Purchase", b =>

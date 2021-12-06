@@ -44,11 +44,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Views\Account\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <None Include="wwwroot\build\config\postcss.config.js" />
     <None Include="wwwroot\build\config\rollup.config.js" />
     <None Include="wwwroot\build\js\AdminLTE.js" />
